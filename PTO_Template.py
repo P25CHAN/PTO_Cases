@@ -9,7 +9,7 @@ def save():
     c = reporter.get()
     d = status.get()
     e = actions.get()
-    content_list.append(a+" "+b+" "+c+" "+d+" ")
+    content_list.append(a+" "+b+" "+c+" "+d+" "+e)
     add_files()
     messagebox.showinfo("Saved", "It was saved successsfully!")
     ticket.set("")
@@ -24,7 +24,7 @@ def delete():
     removed = False
     for item in content_list:
         sort_lines = item.split(" ")
-        if delete_case.get() == sort_lines[3]:
+        if delete_case.get() == sort_lines[0]:
             content_list.remove(item)
             removed = True
     add_files()
@@ -40,20 +40,20 @@ def check_files():
     for item in content_list:
         sort_lines = item.split(" ")
         values.append(sort_lines[0])
-        x.insert(INSERT, sort_lines[0]+"\t\t"+sort_lines[1]+"\t\t\t"+sort_lines[2]+"\t\t\t"+sort_lines[3]+"\t\t"+sort_lines[4]+"\t\n")
-        x.place (x = 20, y = 270)
+        x.insert(INSERT, sort_lines[0]+"\t\t"+sort_lines[1]+"\t\t"+sort_lines[2]+"\t\t"+sort_lines[3]+"\t\t"+sort_lines[4]+"\t\n")
+    x.place (x = 20, y = 270)
     delete_line = Entry(interface_agenda, textvariable = delete_case).place (x = 450, y = 80)
     if content_list == []:
         delete_box = Entry(interface_agenda, textvariable = (values)).place (x = 450, y = 80)
     x.config(state = DISABLED)
 
 def my_files():
-    z = 'C:\\Users\\juan\\Documents\\Python_works\\PYTHON_PROJECT\\My_agenda.txt'
+    z = 'C:\\Users\\juan\\Documents\\Python Proyect\\PTO_Cases\\My_agenda.txt'
     archive = open(z, "a")
     archive.close()
 
 def load_files():
-    z = 'C:\\Users\\juan\\Documents\\Python_works\\PYTHON_PROJECT\\My_agenda.txt'
+    z = 'C:\\Users\\juan\\Documents\\Python Proyect\\PTO_Cases\\My_agenda.txt'
     archive = open(z, "r")
     line = archive.readline()
     if line:
@@ -65,7 +65,7 @@ def load_files():
     archive.close()
 
 def add_files():
-    z = 'C:\\Users\\juan\\Documents\\Python_works\\PYTHON_PROJECT\\My_agenda.txt'
+    z = 'C:\\Users\\juan\\Documents\\Python Proyect\\PTO_Cases\\My_agenda.txt'
     archive = open(z, "w")
     content_list.sort()
     for item in content_list:
@@ -75,8 +75,8 @@ def add_files():
 interface_agenda = Tk()
 ticket = StringVar()
 summary = StringVar()
-status = StringVar()
 reporter = StringVar()
+status = StringVar()
 actions = StringVar()
 delete_case = StringVar()
 table_color = "#416"
@@ -89,10 +89,10 @@ ticket_line = Label(interface_agenda, text = "TICKET:", bg =  table_color, fg = 
 ticket_box = Entry(interface_agenda, textvariable = ticket).place (x = 170, y = 80)
 summary_line = Label(interface_agenda, text = "SUMMARY:", bg =  table_color, fg = letter_color, font =("gothic", 14)).place (x = 50, y = 110)
 summary_box = Entry(interface_agenda, textvariable = summary).place (x = 170, y = 110)
-status_line = Label(interface_agenda, text = "STATUS:", bg =  table_color, fg = letter_color, font =("gothic", 14)).place (x = 50, y = 140)
-status_box = Entry(interface_agenda, textvariable = status).place (x = 170, y = 140)
-reporter_line = Label(interface_agenda, text = "REPORTER:", bg =  table_color, fg = letter_color, font =("gothic", 14)).place (x = 50, y = 170)
-reporter_box = Entry(interface_agenda, textvariable = reporter).place (x = 170, y = 170)
+reporter_line = Label(interface_agenda, text = "REPORTER:", bg =  table_color, fg = letter_color, font =("gothic", 14)).place (x = 50, y = 140)
+reporter_box = Entry(interface_agenda, textvariable = status).place (x = 170, y = 140)
+status_line = Label(interface_agenda, text = "STATUS:", bg =  table_color, fg = letter_color, font =("gothic", 14)).place (x = 50, y = 170)
+status_box = Entry(interface_agenda, textvariable = reporter).place (x = 170, y = 170)
 actions_line = Label(interface_agenda, text = "ACTIONS:", bg = table_color, fg = letter_color, font =("gothic", 14)).place (x = 50, y = 200)
 actions_box = Entry(interface_agenda, textvariable = actions).place (x = 170, y = 200)
 delete_line = Label(interface_agenda, text = "DELETE!", bg = table_color, fg = letter_color, font =("gothic", 14)).place (x = 370, y = 80)
