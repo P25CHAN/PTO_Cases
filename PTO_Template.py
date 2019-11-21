@@ -9,7 +9,7 @@ def save():
     c = reporter.get()
     d = status.get()
     e = actions.get()
-    content_list.append(a+" "+b+" "+c+" "+d+" "+e)
+    content_list.append(a+","+b+","+c+","+d+","+e)
     add_files()
     messagebox.showinfo("Saved", "It was saved successsfully!")
     ticket.set("")
@@ -23,29 +23,38 @@ def delete():
     d = delete_case.get()
     removed = False
     for item in content_list:
-        sort_lines = item.split(" ")
+        sort_lines = item.split(",")
         if delete_case.get() == sort_lines[0]:
             content_list.remove(item)
             removed = True
     add_files()
     check_files()
     if removed:
-        messagebox.showinfo("Deleted", "Item was deleted!" + d)
+        messagebox.showinfo("Deleted", "Item was deleted! " + d)
 
 def check_files():
-    x = Text(interface_agenda, width = 120, height = 20)
+    x = Text(interface_agenda, width = 131, height = 25)
     content_list.sort()
     values = []
-    x.insert(INSERT, "TICKET\t\tSUMMARY\t\tREPORTER\t\tSTATUS\t\tACTIONS\n")
+    x.insert(INSERT, "TICKET\t\tSUMMARY\t\t\t\t\tREPORTER\t\t\tSTATUS\t\t\tACTIONS\n")
     for item in content_list:
-        sort_lines = item.split(" ")
+        sort_lines = item.split(",")
         values.append(sort_lines[0])
-        x.insert(INSERT, sort_lines[0]+"\t\t"+sort_lines[1]+"\t\t"+sort_lines[2]+"\t\t"+sort_lines[3]+"\t\t"+sort_lines[4]+"\t\n")
+        x.insert(INSERT, sort_lines[0]+"\t\t"+sort_lines[1]+"\t\t\t\t\t"+sort_lines[2]+"\t\t\t"+sort_lines[3]+"\t\t\t"+sort_lines[4]+"\t\n")
     x.place (x = 20, y = 270)
-    delete_line = Entry(interface_agenda, textvariable = delete_case).place (x = 450, y = 80)
+    delete_line = Spinbox(interface_agenda, value = (values), textvariable = delete_case).place (x = 450, y = 80)
     if content_list == []:
-        delete_box = Entry(interface_agenda, textvariable = (values)).place (x = 450, y = 80)
+        delete_box = Spinbox(interface_agenda, value = (values)).place (x = 450, y = 80)
     x.config(state = DISABLED)
+    excel_file()
+
+def excel_file():
+    z = 'C:\\Users\\juan\\Documents\\Python Proyect\\PTO_Cases\\My_agenda1.txt'
+    archive = open(z, "w")
+    content_list.sort()
+    for item in content_list:
+        archive.write(item + "\n")
+    archive.close()
 
 def my_files():
     z = 'C:\\Users\\juan\\Documents\\Python Proyect\\PTO_Cases\\My_agenda.txt'
@@ -82,7 +91,7 @@ delete_case = StringVar()
 table_color = "#416"
 letter_color = "#FFA"
 interface_agenda.title("My Project Agenda!")
-interface_agenda.geometry("900x600")
+interface_agenda.geometry("1100x700")
 interface_agenda.configure(background = table_color)
 tittle_line = Label(interface_agenda, text = "My Files!", bg = table_color, fg = letter_color, font =("gothic", 25)).place(x = 280, y = 25)
 ticket_line = Label(interface_agenda, text = "TICKET:", bg =  table_color, fg = letter_color, font =("gothic", 14)).place (x = 50, y = 80)
