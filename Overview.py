@@ -8,8 +8,8 @@ def save():
     b = summary.get()
     c = reporter.get()
     d = status.get()
-    d = actions.get()
-    content_list.append(a+"$"+b+"$"+c+"$"+d)
+    e = actions.get()
+    content_list.append(a+" "+b+" "+c+" "+d+" "+e)
     add_files()
     messagebox.showinfo("Saved", "It was saved successsfully!")
     ticket.set("")
@@ -23,14 +23,14 @@ def delete():
     d = delete_case.get()
     removed = False
     for item in content_list:
-        sort_lines = item.split("$")
-        if delete_case.get() == sort_lines[3]:
+        sort_lines = item.split(" ")
+        if delete_case.get() == sort_lines[4]:
             content_list.remove(item)
             removed = True
     add_files()
     check_files()
     if removed:
-        messagebox.showinfo("Deleted", "Item was deleted!" + d)
+        messagebox.showinfo("Deleted", "Item was deleted! " + d)
 
 def check_files():
     x = Text(interface_agenda, width = 120, height = 20)
@@ -38,22 +38,22 @@ def check_files():
     values = []
     x.insert(INSERT, "TICKET\t\tSUMMARY\t\tREPORTER\t\tSTATUS\t\tACTIONS\n")
     for item in content_list:
-        sort_lines = item.split("$")
-        values.append(sort_lines[2])
-        x.insert(INSERT, sort_lines[0]+"\t\t"+sort_lines[1]+"\t\t\t"+sort_lines[2]+"\t\t\t"+sort_lines[3]+"\t\t"+sort_lines[3]+"\t\n")
-        x.place (x = 20, y = 270)
+        sort_lines = item.split(" ")
+        values.append(sort_lines[0])
+        x.insert(INSERT, sort_lines[0]+"\t\t"+sort_lines[1]+"\t\t"+sort_lines[2]+"\t\t"+sort_lines[3]+"\t\t"+sort_lines[4]+"\tn")
+    x.place (x = 20, y = 290)
     delete_line = Entry(interface_agenda, textvariable = delete_case).place (x = 450, y = 80)
     if content_list == []:
         delete_box = Entry(interface_agenda, textvariable = (values)).place (x = 450, y = 80)
     x.config(state = DISABLED)
 
 def my_files():
-    z = 'C:\\Users\\juan\\Documents\\Python_works\\PYTHON_PROJECT\\My_agenda.txt'
+    z = 'C:\\Users\\juan\\Documents\\Python Proyect\\PTO_Cases\\My_agenda.txt'
     archive = open(z, "a")
     archive.close()
 
 def load_files():
-    z = 'C:\\Users\\juan\\Documents\\Python_works\\PYTHON_PROJECT\\My_agenda.txt'
+    z = 'C:\\Users\\juan\\Documents\\Python Proyect\\PTO_Cases\\My_agenda.txt'
     archive = open(z, "r")
     line = archive.readline()
     if line:
@@ -65,7 +65,7 @@ def load_files():
     archive.close()
 
 def add_files():
-    z = 'C:\\Users\\juan\\Documents\\Python_works\\PYTHON_PROJECT\\My_agenda.txt'
+    z = 'C:\\Users\\juan\\Documents\\Python Proyect\\PTO_Cases\\My_agenda.txt'
     archive = open(z, "w")
     content_list.sort()
     for item in content_list:
