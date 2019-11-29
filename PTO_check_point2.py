@@ -75,16 +75,10 @@ def excel_file(pos1, pos2, pos3, pos4, pos5):
         sheet1.write(0,4, str("ACTIONS"), style1)
         sheet1.col(4).width = 10000
         sheet1.write(row,4, str(pos5))
-        wb.save("xlwt example.xls")
         row += 1
-        information = wb
-        save_info(information)
+        wb.save("C:\\Users\\juan\\Documents\\Python Proyect\\PTO_Cases\\xlwt example.xls")
         break
-
-def save_info(information):
-    wb.save("xlwt example.xls")
-    messagebox.showinfo("Saved", "It was saved successsfully!")
-    
+ 
 def my_files():
     z = 'C:\\Users\\juan\\Documents\\Python Proyect\\PTO_Cases\\My_agenda.txt'
     archive = open(z, "a")
@@ -138,7 +132,7 @@ delete_line = Label(interface_agenda, text = "DELETE!", bg = table_color, fg = l
 delete_box = Spinbox(interface_agenda, textvariable = delete_case).place (x = 450, y = 80)
 add_option = Button(interface_agenda, text = "Add!", command = add_info, bg = "#009", fg = "white").place (x = 180, y = 230)
 delete_option = Button(interface_agenda, text = "Delete!", command = delete_info, bg = "#009", fg = "white").place (x = 470, y = 110)
-save_option = Button(interface_agenda, height=1, width=5, text = "Save!", font =("gothic", 20), command = save_info, bg = "#009", fg = "red").place (x = 670, y = 80)
+#save_option = Button(interface_agenda, height=1, width=5, text = "Save!", font =("gothic", 20), command = excel_file, bg = "#009", fg = "red").place (x = 670, y = 80)
 
 if __name__ == '__main__':
     load_files()
